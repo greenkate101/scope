@@ -1,15 +1,14 @@
 // exercise 1.1
 
-
+var a = 2;
 function pow (x, n) {
     var a = x;
     for (var i = 1; i < n; i++) {
         a *= x;
     }
-    // return a;
-    console.log(x, n);
+    return a;
 }
-var a = 2;
+// add the var
 pow(3, a);
 pow(2, a);
 
@@ -18,7 +17,7 @@ pow(2, a);
 var i = 0;
 
 var logNTimes = function (str, n) {
-    // i = 0; --- The i = 0; isn't necessary since the variable is in the global scope.
+    var i = 0; 
     while (i < n) {
         console.log(str);
         i++;
@@ -26,27 +25,27 @@ var logNTimes = function (str, n) {
 };
 
 while (i < 3) {
-    logNTimes('Work', 6);
+    logNTimes('Work', 2);
     i++;
 }
 
-// It was only printed twice but then I changed the number in the "parent" or global scope to 6. I think I'm missing more....
+// add var to i = 0 so it doesnt leak
 
 // Exercise 1.3
 
-// (function () {
-//     var url = 'http://openweathermap.com/api/'
-//     var apiKey = '1ab2-01bd45-30dab-22232';
-
-//     function request (path, method) {
-//         url = url + path + apiKey;
-//          return http.requestSync(url, method);
-        
-//     }
-
-//     var users = request('/users', 'GET');
-//     var cities = request('/cities', 'GET');
-// })();
+(function () {
+    var url = 'http://openweathermap.com/api/';
+    var apiKey = '1ab2-01bd45-30dab-22232';
+    var url2 = url;
+    function request (path, method) {
+        url = url2 + path + apiKey;
+        console.log(url);
+       // return http.requestSync(url, method);
+    }   
+    var users = request('/users', 'GET');
+    var cities = request('/cities', 'GET');
+})();
+// url = url +... so it needed another variable for the other url.
 
 // Exercise 1.4
 
@@ -74,22 +73,21 @@ var c = function (a, b, c) {
     var x = 10;
 
     console.log(x); 
-    // first 10
     console.log(a); 
-    // second 8
+   
 
     var f = function (a, b, c) {
         var x = 5;
         b = a;
         console.log(b); 
-        // fourth 9
         b = c;
     }
 
     f(a, b, c);
 
     console.log(b); 
-    // third 8
  }
 
 c(8, 9, 10);
+
+// answer : 10(74) 8 ,8 (line 81 - 90,  78- 71 - 90) 9 (line 71- 87)
